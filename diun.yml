@@ -1,0 +1,32 @@
+#     _____  _                #
+#    |  __ \(_)               #
+#    | |  | |_ _   _ _ __     #
+#    | |  | | | | | | '_ \    #
+#    | |__| | | |_| | | | |   #
+#    |_____/|_|\__,_|_| |_|   #
+#                             #                     
+
+version: "3.5"
+
+services:
+  diun:
+    image: crazymax/diun:latest
+    container_name: diun
+    restart: always
+    command: serve 
+    volumes:
+      - /path/to/diun/data:/data # persistent data
+      - /var/run/docker.sock:/var/run/docker.sock # mount the docker socket
+    environment:
+      - TZ=America/New_York
+      - LOG_LEVEL=info
+      - LOG_JSON=false
+      - DIUN_WATCH_WORKERS=20
+      - DIUN_WATCH_SCHEDULE=0 */6 * * * # every 6 hours
+      - DIUN_WATCH_JITTER=30s # add jitter to avoid massive update 
+      - DIUN_PROVIDERS_DOCKER=true # enable docker provider
+      - DIUN_PROVIDERS_DOCKER_WATCHBYDEFAULT=true # watch all containers by default
+      - DIUN_NOTIF_PUSHOVER_TOKEN=XXXXXXX # pushover application token
+      - DIUN_NOTIF_PUSHOVER_RECIPIENT=XXXXXXX # pushover user/group key 
+      - DIUN_PROVIDERS_DOCKER_ENDPOINT=tcp://ip:port # docker endpoint 
+  
