@@ -11,14 +11,14 @@ services:
   dash:    
     image: mauricenino/dashdot:latest
     container_name: dashdot
-    restart: unless-stopped    
-    privileged: true    
+    restart: unless-stopped     
+    privileged: true # Required for CPU temperature monitoring  
     ports:      
-      - '8338:3001'    
+      - '8338:3001' # Web UI port
     volumes:    
-      - /:/mnt/host:ro   
+      - /:/mnt/host:ro # Mount the host root filesystem as read-only   
     environment:      
-      - DASHDOT_SHOW_HOST= 'true'      
-      - DASHDOT_SHOW_DASH_VERSION= 'true'      
-      - DASHDOT_ENABLE_CPU_TEMPS= 'true'      
-      - DASHDOT_ALWAYS_SHOW_PERCENTAGES= 'true'
+      - DASHDOT_SHOW_HOST= 'true' # Show hostname     
+      - DASHDOT_SHOW_DASH_VERSION= 'true' # Show dash version     
+      - DASHDOT_ENABLE_CPU_TEMPS= 'true' # Enable CPU temperature monitoring     
+      - DASHDOT_ALWAYS_SHOW_PERCENTAGES= 'true' # Always show percentages
