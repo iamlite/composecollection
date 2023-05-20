@@ -1,0 +1,53 @@
+#  _   _ _____  __  __    #
+# | \ | |  __ \|  \/  |   #
+# |  \| | |__) | \  / |   #
+# | . ` |  ___/| |\/| |   #
+# | |\  | |    | |  | |   #
+# |_| \_|_|    |_|  |_|   #
+#                         #
+version: '3.7'
+
+services:  
+  app:    
+    image: jc21/nginx-proxy-manager:latest    
+    container_name: npm
+    restart: unless-stopped  
+    networks: 
+      - npm # shared network with goaccess container and other containers that npm will proxy
+    volumes:      
+      - /path/to/npm/data:/data # path to npm data on host machine       
+      - /path/to/letsencrypt:/etc/letsencrypt # path to letsencrypt data on host machine
+    depends_on:    
+      - goaccess # this is the goaccess container that npm will wait for before starting  
+    environment:      
+      - PUID=1000   
+      - PGID=1000
+      - TZ=America/New_York         
+    ports:      
+      - 80:80 # HTTP    
+      - 443:443 # HTTPS       
+      - 81:81 # web UI for nginx proxy manager   
+
+    
+  goaccess:    
+    image: justsky/goaccess-for-nginxproxymanager:latest
+    networks:
+      - npm # shared network with npm container and other containers that npm will proxy
+    container_name: goaccess
+    restart: unless-stopped    
+    environment:      
+      - PUID=1000   
+      - PGID=1000
+      - TZ=America/New_York     
+    ports:      
+        - 7880:7880 # web UI for goaccess     
+    volumes:       
+        - /path/to/npm/data/logs:/opt/log:ro # path to nginx logs on host machine
+
+networks: # create a shared network between npm and other containers that npm will proxy
+  npm: # name of the network
+    external: true # use an existing network 
+    
+## create the 'npm' network before running docker-compose up
+## run 'docker network create npm' to create the network
+      
