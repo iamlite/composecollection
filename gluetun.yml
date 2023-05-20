@@ -1,0 +1,35 @@
+#      _____ _            _                   #
+#     / ____| |          | |                  #
+#    | |  __| |_   _  ___| |_ _   _ _ __      #
+#    | | |_ | | | | |/ _ \ __| | | | '_ \     #
+#    | |__| | | |_| |  __/ |_| |_| | | | |    #
+#     \_____|_|\__,_|\___|\__|\__,_|_| |_|    #
+#                                             #                                      
+
+
+version: "3"
+services:
+  gluetun:
+    image: qmcgaw/gluetun:latest
+    container_name: gluetun
+    cap_add:
+      - NET_ADMIN # Required for VPN
+    devices:
+      - /dev/net/tun:/dev/net/tun # Required for VPN
+    ports:
+      - 8888:8888/tcp # HTTP proxy
+      - 8388:8388/tcp # Shadowsocks
+      - 8388:8388/udp # Shadowsocks
+      - 8080:8080/tcp # qbittorent port passed through gluetun
+    volumes:
+      - /path/to/gluetun:/gluetun # Your gluetun configuration
+    environment:
+      - TZ=America/New_York # Your timezone
+      - VPN_SERVICE_PROVIDER= # Your VPN provider
+      - VPN_TYPE=wireguard # Your VPN type (openvpn or wireguard)
+      - WIREGUARD_PRIVATE_KEY= # Your WireGuard private key
+      - WIREGUARD_ADDRESSES= # Your WireGuard addresses
+      - VPN_ENDPOINT_PORT= #  Your VPN endpoint port
+      - FIREWALL_VPN_INPUT_PORTS= # Your VPN input ports
+      - FIREWALL_OUTBOUND_SUBNETS= # Your outbound subnets
+
