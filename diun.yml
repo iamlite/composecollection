@@ -18,10 +18,10 @@ services:
       - /path/to/diun/data:/data # persistent data
       - /var/run/docker.sock:/var/run/docker.sock # mount the docker socket
     environment:
-      - TZ=America/New_York
-      - LOG_LEVEL=info
-      - LOG_JSON=false
-      - DIUN_WATCH_WORKERS=20
+      - TZ=America/New_York # timezone
+      - LOG_LEVEL=info # log level
+      - LOG_JSON=false # log in json format
+      - DIUN_WATCH_WORKERS=20 # number of workers to use
       - DIUN_WATCH_SCHEDULE=0 */6 * * * # every 6 hours
       - DIUN_WATCH_JITTER=30s # add jitter to avoid massive update 
       - DIUN_PROVIDERS_DOCKER=true # enable docker provider

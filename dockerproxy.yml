@@ -18,6 +18,6 @@ services:
     - CONTAINERS=1 # Enable container listing         
     - POST=0       # Disable POST requests
     ports:        
-    - 2375:2375    # Expose the docker socket    
+    - 2375:2375    # Expose the docker socket on port 2375    
     volumes:       
     - /var/run/docker.sock:/var/run/docker.sock:ro # Mount the docker socket      

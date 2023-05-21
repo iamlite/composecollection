@@ -14,7 +14,7 @@ services:
     restart: unless-stopped     
     privileged: true # Required for CPU temperature monitoring  
     ports:      
-      - '8338:3001' # Web UI port
+      - '3001:3001' # Web UI port
     volumes:    
       - /:/mnt/host:ro # Mount the host root filesystem as read-only   
     environment:      

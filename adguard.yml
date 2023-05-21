@@ -19,7 +19,7 @@ services:
     networks:
       local_lan: # attach the container to the local_lan network
         ipv4_address: 000.000.000.000 # give it a static ip address
-        ipv6_address: 0000:0000:0000::0000 # same but ipv6
+        ipv6_address: 0000:0000:0000::0000
         
 networks: # create a network for the container
   local_lan: # name of the network

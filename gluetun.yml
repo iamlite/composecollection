@@ -15,7 +15,7 @@ services:
     cap_add:
       - NET_ADMIN # Required for VPN
     devices:
-      - /dev/net/tun:/dev/net/tun # Required for VPN
+      - /dev/net/tun:/dev/net/tun # Required for VPN 
     ports:
       - 8888:8888/tcp # HTTP proxy
       - 8388:8388/tcp # Shadowsocks
@@ -29,7 +29,7 @@ services:
       - VPN_TYPE=wireguard # Your VPN type (openvpn or wireguard)
       - WIREGUARD_PRIVATE_KEY= # Your WireGuard private key
       - WIREGUARD_ADDRESSES= # Your WireGuard addresses
-      - VPN_ENDPOINT_PORT= #  Your VPN endpoint port
+      - VPN_ENDPOINT_PORT= # Your VPN endpoint port
       - FIREWALL_VPN_INPUT_PORTS= # Your VPN input ports
       - FIREWALL_OUTBOUND_SUBNETS= # Your outbound subnets
 
